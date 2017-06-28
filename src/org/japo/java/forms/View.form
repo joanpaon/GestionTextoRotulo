@@ -31,10 +31,8 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="pnlAjustes" linkSize="1" alignment="0" max="32767" attributes="0"/>
-                      <Component id="pnlDisplay" linkSize="1" alignment="0" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="pnlAjustes" linkSize="1" alignment="0" max="32767" attributes="0"/>
+                  <Component id="pnlDisplay" linkSize="1" alignment="0" max="32767" attributes="0"/>
                   <Component id="pnlControles" linkSize="1" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -108,6 +106,9 @@
             </Property>
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -151,6 +152,9 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Texto de Prueba"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

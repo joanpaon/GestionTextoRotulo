@@ -2,30 +2,30 @@ package org.japo.java.events;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import org.japo.java.forms.GUI;
+import org.japo.java.controllers.EventsController;
 
 public class DEM implements DocumentListener {
 
-    // Referencia al Interfaz
-    private final GUI gui;
+    // Referencia al EventsController
+    private final EventsController eventsController;
 
     // Constructor
-    public DEM(GUI gui) {
-        this.gui = gui;
+    public DEM(EventsController eventsController) {
+        this.eventsController = eventsController;
     }
 
     @Override
     public void insertUpdate(DocumentEvent e) {
-        gui.procesarCambioTexto(e);
+        eventsController.procesarEventosDocumento(e);
     }
 
     @Override
     public void removeUpdate(DocumentEvent e) {
-        gui.procesarCambioTexto(e);
+        eventsController.procesarEventosDocumento(e);
     }
 
     @Override
     public void changedUpdate(DocumentEvent e) {
-        gui.procesarCambioTexto(e);
+        eventsController.procesarEventosDocumento(e);
     }
 }

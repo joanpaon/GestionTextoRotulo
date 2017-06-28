@@ -17,7 +17,7 @@ package org.japo.java.events;
 
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import org.japo.java.forms.GUI;
+import org.japo.java.controllers.EventsController;
 
 /**
  *
@@ -25,22 +25,21 @@ import org.japo.java.forms.GUI;
  */
 public class FEM implements FocusListener {
 
-    // Referencia al Interfaz
-    private final GUI gui;
+    // Referencia al EventsController
+    private final EventsController eventsController;
 
     // Constructor
-    public FEM(GUI gui) {
-        this.gui = gui;
+    public FEM(EventsController eventsController) {
+        this.eventsController = eventsController;
     }
 
     @Override
     public void focusGained(FocusEvent e) {
-        // gui.procesarFocoGanado(e);
+        // eventsController.procesarFocoGanado(e);
     }
 
     @Override
     public void focusLost(FocusEvent e) {
-        // gui.procesarFocoPerdido(e);
+        // eventsController.procesarFocoPerdido(e);
     }
-
 }

@@ -19,9 +19,10 @@ package org.japo.java.interfaces;
  *
  * @author José A. Pacheco Ondoño - joanpaon@gmail.com
  *
- * Ejemplo de interfaz
  */
-public interface ICapacity {
+public interface IDataAccess {
 
-    boolean validarNumero();
+    void exportarModelo(String fichero) throws Exception;
+
+    void importarModelo(String fichero) throws Exception;
 }

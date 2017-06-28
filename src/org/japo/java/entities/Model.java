@@ -16,14 +16,13 @@
 package org.japo.java.entities;
 
 import java.io.Serializable;
-import java.util.Properties;
 import org.japo.java.lib.UtilesValidacion;
 
 /**
  *
  * @author José A. Pacheco Ondoño - joanpaon@gmail.com
  */
-public class Modelo implements Serializable {
+public class Model implements Serializable {
 
     // Número de items
     public static final int NUM_ITEMS = 11;
@@ -81,7 +80,7 @@ public class Modelo implements Serializable {
     private int fondoA;
 
     // Constructor Predeterminado
-    public Modelo() {
+    public Model() {
         texto = DEF_TEXTO;
         familia = DEF_FAMILIA;
         negrita = DEF_NEGRITA;
@@ -96,10 +95,10 @@ public class Modelo implements Serializable {
     }
 
     // Constructor Parametrizado
-    public Modelo(String texto, String familia,
-                  boolean negrita, boolean cursiva, int talla,
-                  int frenteR, int frenteV, int frenteA,
-                  int fondoR, int fondoV, int fondoA) {
+    public Model(String texto, String familia,
+                 boolean negrita, boolean cursiva, int talla,
+                 int frenteR, int frenteV, int frenteA,
+                 int fondoR, int fondoV, int fondoA) {
         // Texto
         if (UtilesValidacion.validarDato(texto, ER_TEXTO)) {
             this.texto = texto;
@@ -280,157 +279,4 @@ public class Modelo implements Serializable {
     }
 
     // --- FIN SETTERS / GETTERS
-    //
-    // Items > Modelo
-    public void asignarItemsModelo(String[] items) throws Exception {
-        // Texto
-        setTexto(items[POS_TEXTO]);
-
-        // Familia
-        setFamilia(items[POS_FAMILIA]);
-
-        // Estilo
-        setNegrita(items[POS_NEGRITA].toLowerCase().equals("true"));
-        setCursiva(items[POS_CURSIVA].toLowerCase().equals("true"));
-
-        // Talla
-        try {
-            setTalla(Integer.parseInt(items[POS_TALLA]));
-        } catch (NumberFormatException e) {
-            setTalla(DEF_TALLA);
-        }
-
-        // Frente
-        try {
-            setFrenteR(Integer.parseInt(items[POS_FRENTE_R]));
-            setFrenteV(Integer.parseInt(items[POS_FRENTE_V]));
-            setFrenteA(Integer.parseInt(items[POS_FRENTE_A]));
-        } catch (NumberFormatException e) {
-            setFrenteR(DEF_FRENTE_R);
-            setFrenteV(DEF_FRENTE_V);
-            setFrenteA(DEF_FRENTE_A);
-        }
-
-        // Fondo
-        try {
-            setFondoR(Integer.parseInt(items[POS_FONDO_R]));
-            setFondoV(Integer.parseInt(items[POS_FONDO_V]));
-            setFondoA(Integer.parseInt(items[POS_FONDO_A]));
-        } catch (NumberFormatException e) {
-            setFondoR(DEF_FONDO_R);
-            setFondoV(DEF_FONDO_V);
-            setFondoA(DEF_FONDO_A);
-        }
-    }
-
-    // Modelo > Items
-    public String[] asignarModeloItems() {
-        // Lista vacía
-        String[] items = new String[NUM_ITEMS];
-
-        // Items > Lista
-        items[POS_TEXTO] = getTexto();
-        items[POS_FAMILIA] = getFamilia();
-        items[POS_NEGRITA] = isNegrita() + "";
-        items[POS_CURSIVA] = isCursiva() + "";
-        items[POS_TALLA] = getTalla() + "";
-        items[POS_FRENTE_R] = getFrenteR() + "";
-        items[POS_FRENTE_V] = getFrenteV() + "";
-        items[POS_FRENTE_A] = getFrenteA() + "";
-        items[POS_FONDO_R] = getFondoR() + "";
-        items[POS_FONDO_V] = getFondoV() + "";
-        items[POS_FONDO_A] = getFondoA() + "";
-
-        // Devuelve Lista
-        return items;
-    }
-
-    // Copiar Estado Modelo
-    public void copiarModelo(Modelo modeloRef) {
-        // Texto
-        setTexto(modeloRef.getTexto());
-
-        // Familia
-        setFamilia(modeloRef.getFamilia());
-
-        // Estilo
-        setNegrita(modeloRef.isNegrita());
-        setCursiva(modeloRef.isCursiva());
-
-        // Tamaño
-        setTalla(modeloRef.getTalla());
-
-        // Color Frente
-        setFrenteR(modeloRef.getFrenteR());
-        setFrenteV(modeloRef.getFrenteV());
-        setFrenteA(modeloRef.getFrenteA());
-
-        // Color Fondo
-        setFondoR(modeloRef.getFondoR());
-        setFondoV(modeloRef.getFondoV());
-        setFondoA(modeloRef.getFondoA());
-    }
-
-    public void asignarItemsModelo(Properties prp) {
-        // Texto
-        setTexto(prp.getProperty("rotulo.texto", DEF_TEXTO));
-
-        // Familia
-        setFamilia(prp.getProperty("rotulo.familia", DEF_FAMILIA));
-
-        // Estilo
-        setNegrita(prp.getProperty("rotulo.negrita", DEF_NEGRITA + "").equals("true"));
-        setCursiva(prp.getProperty("rotulo.cursiva", DEF_CURSIVA + "").equals("true"));
-
-        // Talla
-        try {
-            setTalla(Integer.parseInt(prp.getProperty("rotulo.talla")));
-        } catch (NumberFormatException e) {
-            setTalla(DEF_TALLA);
-        }
-
-        // Color de Frente
-        try {
-            setFrenteR(Integer.parseInt(prp.getProperty("rotulo.frente_r")));
-            setFrenteV(Integer.parseInt(prp.getProperty("rotulo.frente_v")));
-            setFrenteA(Integer.parseInt(prp.getProperty("rotulo.frente_a")));
-        } catch (NumberFormatException e) {
-            setFrenteR(DEF_FRENTE_R);
-            setFrenteV(DEF_FRENTE_V);
-            setFrenteA(DEF_FRENTE_A);
-        }
-
-        // Color de Fondo
-        try {
-            setFondoR(Integer.parseInt(prp.getProperty("rotulo.fondo_r")));
-            setFondoV(Integer.parseInt(prp.getProperty("rotulo.fondo_v")));
-            setFondoA(Integer.parseInt(prp.getProperty("rotulo.fondo_a")));
-        } catch (NumberFormatException e) {
-            setFondoR(DEF_FONDO_R);
-            setFondoV(DEF_FONDO_V);
-            setFondoA(DEF_FONDO_A);
-        }
-    }
-
-    // Modelo > Propiedades
-    public Properties generarPropiedadesModelo() {
-        // Instancia Propiedades
-        Properties prp = new Properties();
-
-        // Escribe Propiedades
-        prp.setProperty("rotulo.texto", getTexto());
-        prp.setProperty("rotulo.familia", getFamilia());
-        prp.setProperty("rotulo.negrita", isNegrita() + "");
-        prp.setProperty("rotulo.cursiva", isCursiva() + "");
-        prp.setProperty("rotulo.talla", getTalla() + "");
-        prp.setProperty("rotulo.frente_r", getFrenteR() + "");
-        prp.setProperty("rotulo.frente_v", getFrenteV() + "");
-        prp.setProperty("rotulo.frente_a", getFrenteA() + "");
-        prp.setProperty("rotulo.fondo_r", getFondoR() + "");
-        prp.setProperty("rotulo.fondo_v", getFondoV() + "");
-        prp.setProperty("rotulo.fondo_a", getFondoA() + "");
-
-        // Devuelve Propiedades
-        return prp;
-    }
 }

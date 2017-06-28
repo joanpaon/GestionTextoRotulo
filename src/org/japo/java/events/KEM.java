@@ -16,7 +16,7 @@
 package org.japo.java.events;
 
 import java.awt.event.KeyAdapter;
-import org.japo.java.forms.GUI;
+import org.japo.java.controllers.EventsController;
 
 /**
  *
@@ -24,12 +24,11 @@ import org.japo.java.forms.GUI;
  */
 public class KEM extends KeyAdapter {
 
-    // Referencia al Interfaz
-    private final GUI gui;
+    // Referencia al EventsController
+    private final EventsController eventsController;
 
     // Constructor
-    public KEM(GUI gui) {
-        this.gui = gui;
+    public KEM(EventsController eventsController) {
+        this.eventsController = eventsController;
     }
-
 }
