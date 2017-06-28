@@ -1,0 +1,13 @@
+{
+    "texto": "La lluvia en España",
+    "familia": "Georgia",
+    "negrita": false,
+    "cursiva": true,
+    "talla": 70,
+    "frenteR": 0,
+    "frenteV": 100,
+    "frenteA": 0,
+    "fondoR": 150,
+    "fondoV": 255,
+    "fondoA": 255
+}
