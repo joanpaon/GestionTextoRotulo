@@ -17,7 +17,7 @@ package org.japo.java.forms;
 
 import java.net.URL;
 import javax.swing.ImageIcon;
-import org.japo.java.controllers.MainController;
+import org.japo.java.controllers.Controller;
 import org.japo.java.entities.Model;
 import org.japo.java.events.DEM;
 
@@ -27,53 +27,50 @@ import org.japo.java.events.DEM;
  */
 public class View extends javax.swing.JFrame {
 
-    // Modelo
+    // Referencias 
     private Model model;
-
-    // Controlador Principal
-    private MainController controller;
+    private Controller control;
 
     // Constructor
     public View() {
-        // Inicializar GUI - PREVIA
+        // Inicializar Vista - PREVIA
         beforeInit();
 
-        // Construcción - GUI
+        // Construcción - Vista
         initComponents();
 
-        // Inicializar GUI - POSTERIOR
+        // Inicializar Vista - POSTERIOR
         afterInit();
     }
 
-    // Inicializar GUI - PREVIA
+    // Inicializar Vista - PREVIA
     private void beforeInit() {
         // Generar Modelo
         model = new Model();
 
         // Generar Controlador
-        controller = new MainController(model, this);
+        control = new Controller(model, this);
 
         // Restaurar Estado Previo
-        controller.restaurarEstadoApp();
+        control.restaurarEstadoApp();
 
         // Otras inicializaciones
     }
 
-    // Inicializar GUI - POSTERIOR
+    // Inicializar Vista - POSTERIOR
     private void afterInit() {
         // Icono Ventana - Recurso
         URL urlICN = ClassLoader.getSystemResource("img/favicon.png");
         setIconImage(new ImageIcon(urlICN).getImage());
 
-        // Gestión Documento Campo de Texto
-        txfTexto.getDocument().addDocumentListener(
-            new DEM(controller.getEventsController()));
+        // Escuchador Cambio Texto
+        txfTexto.getDocument().addDocumentListener(new DEM(control));
 
-        // Modelo > Interfaz
-        getController().sincronizarModeloInterfaz();
+        // Modelo > Vista
+        control.sincronizarModeloVista(model, this);
 
         // Enfocar Control Inicial
-        txfTexto.requestFocus();
+        btnCargar.requestFocus();
 
         // Otras inicializaciones
     }
@@ -87,7 +84,7 @@ public class View extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlDisplay = new javax.swing.JPanel();
+        pnlRotulo = new javax.swing.JPanel();
         lblRotulo = new javax.swing.JLabel();
         pnlAjustes = new javax.swing.JPanel();
         txfTexto = new javax.swing.JTextField();
@@ -104,7 +101,7 @@ public class View extends javax.swing.JFrame {
             }
         });
 
-        pnlDisplay.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Rótulo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 18))); // NOI18N
+        pnlRotulo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Rótulo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 18))); // NOI18N
 
         lblRotulo.setBackground(java.awt.Color.white);
         lblRotulo.setFont(new java.awt.Font("Calibri", 0, 48)); // NOI18N
@@ -114,18 +111,18 @@ public class View extends javax.swing.JFrame {
         lblRotulo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         lblRotulo.setOpaque(true);
 
-        javax.swing.GroupLayout pnlDisplayLayout = new javax.swing.GroupLayout(pnlDisplay);
-        pnlDisplay.setLayout(pnlDisplayLayout);
-        pnlDisplayLayout.setHorizontalGroup(
-            pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlDisplayLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlRotuloLayout = new javax.swing.GroupLayout(pnlRotulo);
+        pnlRotulo.setLayout(pnlRotuloLayout);
+        pnlRotuloLayout.setHorizontalGroup(
+            pnlRotuloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlRotuloLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblRotulo, javax.swing.GroupLayout.PREFERRED_SIZE, 754, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        pnlDisplayLayout.setVerticalGroup(
-            pnlDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlDisplayLayout.createSequentialGroup()
+        pnlRotuloLayout.setVerticalGroup(
+            pnlRotuloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlRotuloLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblRotulo, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -200,18 +197,18 @@ public class View extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlAjustes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlRotulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlControles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {pnlAjustes, pnlControles, pnlDisplay});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {pnlAjustes, pnlControles, pnlRotulo});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlRotulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlAjustes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -224,15 +221,15 @@ public class View extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        controller.getEventsController().procesarCierreVentana(evt);
+        control.procesarCierreVentana(evt);
     }//GEN-LAST:event_formWindowClosing
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
-        controller.getEventsController().procesarImportacion(evt);
+        control.procesarImportacion(evt);
     }//GEN-LAST:event_btnCargarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        controller.getEventsController().procesarExportacion(evt);
+        control.procesarExportacion(evt);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -241,7 +238,7 @@ public class View extends javax.swing.JFrame {
     public javax.swing.JLabel lblRotulo;
     private javax.swing.JPanel pnlAjustes;
     private javax.swing.JPanel pnlControles;
-    private javax.swing.JPanel pnlDisplay;
+    private javax.swing.JPanel pnlRotulo;
     public javax.swing.JTextField txfTexto;
     // End of variables declaration//GEN-END:variables
 
@@ -251,13 +248,5 @@ public class View extends javax.swing.JFrame {
 
     public void setModel(Model model) {
         this.model = model;
-    }
-
-    public MainController getController() {
-        return controller;
-    }
-
-    public void setController(MainController controller) {
-        this.controller = controller;
     }
 }

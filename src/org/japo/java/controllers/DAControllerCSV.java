@@ -19,37 +19,41 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import org.japo.java.interfaces.IDataAccess;
+import org.japo.java.entities.Model;
+import org.japo.java.interfaces.IDAController;
 
 /**
  *
  * @author José A. Pacheco Ondoño - joanpaon@gmail.com
  */
-public class DAControllerCSV implements IDataAccess {
+public class DAControllerCSV implements IDAController {
 
-    // Referencia al MainController
-    private final MainController controller;
+    // Referencias
+    private final ModelController modelControl;
 
     // Constructor Parametrizado
-    public DAControllerCSV(MainController controller) {
-        this.controller = controller;
+    public DAControllerCSV(ModelController modelControl) {
+        this.modelControl = modelControl;
     }
 
     // Modelo > Fichero [CSV]
     @Override
-    public void exportarModelo(String fichero) throws Exception {
+    public void exportarModelo(Model model, String fichero) throws Exception {
         // Lectura de un fichero de texto
         try (PrintWriter salida = new PrintWriter(new FileWriter(fichero))) {
-            // Modelo > Items
-            String[] items = controller.getModelController().asignarModeloItems();
+            // Items
+            String[] items = new String[Model.NUM_ITEMS];
 
-            // Escribe el primer item por separado
+            // Modelo > Items
+            modelControl.asignarModeloItems(model, items);
+
+            // Primer item por separado
             salida.print(items[0]);
 
             // Separador Items
-            String separador = "\\s*,\\s*";
+            String separador = ", ";
 
-            // Escribe el resto de los items
+            // Resto de los items
             for (int i = 1; i < items.length; i++) {
                 salida.print(separador + items[i]);
             }
@@ -58,7 +62,7 @@ public class DAControllerCSV implements IDataAccess {
 
     // Fichero [CSV] > Modelo
     @Override
-    public void importarModelo(String fichero) throws Exception {
+    public void importarModelo(Model model, String fichero) throws Exception {
         // Lectura de un fichero de texto
         try (BufferedReader entrada = new BufferedReader(new FileReader(fichero))) {
             // Linea de texto a leer
@@ -71,7 +75,7 @@ public class DAControllerCSV implements IDataAccess {
             String[] items = linea.split(separador);
 
             // Items > Modelo
-            controller.getModelController().asignarItemsModelo(items);
+            modelControl.asignarItemsModelo(items, model);
         }
     }
 }

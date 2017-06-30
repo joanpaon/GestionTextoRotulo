@@ -15,14 +15,16 @@
  */
 package org.japo.java.interfaces;
 
+import org.japo.java.entities.Model;
+
 /**
  *
  * @author José A. Pacheco Ondoño - joanpaon@gmail.com
  *
  */
-public interface IDataAccess {
+public interface IDAController {
 
-    void exportarModelo(String fichero) throws Exception;
+    public void importarModelo(Model model, String fichero) throws Exception;
 
-    void importarModelo(String fichero) throws Exception;
+    public void exportarModelo(Model model, String fichero) throws Exception;
 }

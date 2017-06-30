@@ -22,46 +22,46 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.Writer;
 import org.japo.java.entities.Model;
-import org.japo.java.interfaces.IDataAccess;
+import org.japo.java.interfaces.IDAController;
 
 /**
  *
  * @author José A. Pacheco Ondoño - joanpaon@gmail.com
  */
-public class DAControllerJSON implements IDataAccess {
+public class DAControllerJSON implements IDAController {
 
-    // Referencia al MainController
-    private final MainController controller;
+    // Referencias
+    private final ModelController modelControl;
 
     // Constructor Parametrizado
-    public DAControllerJSON(MainController controller) {
-        this.controller = controller;
+    public DAControllerJSON(ModelController modelControl) {
+        this.modelControl = modelControl;
     }
 
     // Modelo > Fichero [JSON]
     @Override
-    public void exportarModelo(String fichero) throws Exception {
+    public void exportarModelo(Model model, String fichero) throws Exception {
         try (Writer salida = new FileWriter(fichero)) {
             // Instancia Objeto Gson
             Gson gson = new GsonBuilder().create();
 
             // Escribe los datos en el fichero
-            gson.toJson(controller.getModel(), salida);
+            gson.toJson(model, salida);
         }
     }
 
     // Fichero [JSON] > Modelo
     @Override
-    public void importarModelo(String fichero) throws Exception {
+    public void importarModelo(Model modeloFin, String fichero) throws Exception {
         try (JsonReader entrada = new JsonReader(new FileReader(fichero))) {
             // Crea Objeto Gson
             Gson gson = new Gson();
 
             // Fichero JSON > Modelo Importado
-            Model modeloImp = gson.fromJson(entrada, Model.class);
+            Model modeloIni = gson.fromJson(entrada, Model.class);
 
             // Modelo Importado > Modelo
-            controller.getModelController().copiarModelo(modeloImp);
+            modelControl.copiarModelo(modeloIni, modeloFin);
         }
     }
 }

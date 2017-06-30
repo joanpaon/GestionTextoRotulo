@@ -17,7 +17,7 @@ package org.japo.java.events;
 
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import org.japo.java.controllers.EventsController;
+import org.japo.java.controllers.Controller;
 
 /**
  *
@@ -25,16 +25,16 @@ import org.japo.java.controllers.EventsController;
  */
 public class MWEM implements MouseWheelListener {
 
-    // Referencia al EventsController
-    private final EventsController eventsController;
+    // Referencia al Controller
+    private final Controller control;
 
     // Constructor
-    public MWEM(EventsController eventsController) {
-        this.eventsController = eventsController;
+    public MWEM(Controller control) {
+        this.control = control;
     }
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
-        // gui.procesarMovimientoRueda();
+        // control.procesarMovimientoRueda();
     }
 }

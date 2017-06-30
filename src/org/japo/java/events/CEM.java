@@ -17,7 +17,7 @@ package org.japo.java.events;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import org.japo.java.controllers.EventsController;
+import org.japo.java.controllers.Controller;
 
 /**
  *
@@ -25,16 +25,17 @@ import org.japo.java.controllers.EventsController;
  */
 public class CEM implements ChangeListener {
 
-    // Referencia al EventsController
-    private final EventsController eventsController;
+    // Referencia al Controller
+    private final Controller control;
 
     // Constructor
-    public CEM(EventsController eventsController) {
-        this.eventsController = eventsController;
+    public CEM(Controller control) {
+        this.control = control;
     }
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        // eventsController.procesarCambio(e);
+        // control.procesarCambio(e);
     }
+
 }

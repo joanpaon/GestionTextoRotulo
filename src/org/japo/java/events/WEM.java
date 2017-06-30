@@ -17,7 +17,7 @@ package org.japo.java.events;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import org.japo.java.controllers.EventsController;
+import org.japo.java.controllers.Controller;
 
 /**
  *
@@ -25,17 +25,17 @@ import org.japo.java.controllers.EventsController;
  */
 public class WEM extends WindowAdapter {
 
-    // Referencia al EventsController
-    private final EventsController eventsController;
+    // Referencia al Controller
+    private final Controller control;
 
     // Constructor
-    public WEM(EventsController eventsController) {
-        this.eventsController = eventsController;
+    public WEM(Controller control) {
+        this.control = control;
     }
 
     // Cierre Iniciado
     @Override
     public void windowClosing(WindowEvent e) {
-
+        control.procesarCierreVentana(e);
     }
 }

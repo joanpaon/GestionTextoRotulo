@@ -96,9 +96,9 @@ public class Model implements Serializable {
 
     // Constructor Parametrizado
     public Model(String texto, String familia,
-                 boolean negrita, boolean cursiva, int talla,
-                 int frenteR, int frenteV, int frenteA,
-                 int fondoR, int fondoV, int fondoA) {
+                  boolean negrita, boolean cursiva, int talla,
+                  int frenteR, int frenteV, int frenteA,
+                  int fondoR, int fondoV, int fondoA) {
         // Texto
         if (UtilesValidacion.validarDato(texto, ER_TEXTO)) {
             this.texto = texto;

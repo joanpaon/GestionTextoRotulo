@@ -17,6 +17,7 @@ package org.japo.java.controllers;
 
 import java.util.Properties;
 import org.japo.java.entities.Model;
+import org.japo.java.forms.View;
 
 /**
  *
@@ -24,165 +25,173 @@ import org.japo.java.entities.Model;
  */
 public class ModelController {
 
-    // Referencia al MainController
-    private final MainController controller;
+    // Referencias
+    private final Controller control;
 
     // Constructor Parametrizado
-    public ModelController(MainController controller) {
-        this.controller = controller;
+    public ModelController(Controller control) {
+        this.control = control;
     }
 
     // Items > Modelo
-    public void asignarItemsModelo(String[] items) throws Exception {
+    public void asignarItemsModelo(String[] items, Model model) throws Exception {
         // Texto
-        controller.getModel().setTexto(items[Model.POS_TEXTO]);
+        model.setTexto(items[Model.POS_TEXTO]);
 
         // Familia
-        controller.getModel().setFamilia(items[Model.POS_FAMILIA]);
+        model.setFamilia(items[Model.POS_FAMILIA]);
 
         // Estilo
-        controller.getModel().setNegrita(items[Model.POS_NEGRITA].toLowerCase().equals("true"));
-        controller.getModel().setCursiva(items[Model.POS_CURSIVA].toLowerCase().equals("true"));
+        model.setNegrita(items[Model.POS_NEGRITA].equals("true"));
+        model.setCursiva(items[Model.POS_CURSIVA].equals("true"));
 
         // Talla
         try {
-            controller.getModel().setTalla(Integer.parseInt(items[Model.POS_TALLA]));
+            model.setTalla(Integer.parseInt(items[Model.POS_TALLA]));
         } catch (NumberFormatException e) {
-            controller.getModel().setTalla(Model.DEF_TALLA);
+            model.setTalla(Model.DEF_TALLA);
         }
 
         // Frente
         try {
-            controller.getModel().setFrenteR(Integer.parseInt(items[Model.POS_FRENTE_R]));
-            controller.getModel().setFrenteV(Integer.parseInt(items[Model.POS_FRENTE_V]));
-            controller.getModel().setFrenteA(Integer.parseInt(items[Model.POS_FRENTE_A]));
+            model.setFrenteR(Integer.parseInt(items[Model.POS_FRENTE_R]));
+            model.setFrenteV(Integer.parseInt(items[Model.POS_FRENTE_V]));
+            model.setFrenteA(Integer.parseInt(items[Model.POS_FRENTE_A]));
         } catch (NumberFormatException e) {
-            controller.getModel().setFrenteR(Model.DEF_FRENTE_R);
-            controller.getModel().setFrenteV(Model.DEF_FRENTE_V);
-            controller.getModel().setFrenteA(Model.DEF_FRENTE_A);
+            model.setFrenteR(Model.DEF_FRENTE_R);
+            model.setFrenteV(Model.DEF_FRENTE_V);
+            model.setFrenteA(Model.DEF_FRENTE_A);
         }
 
         // Fondo
         try {
-            controller.getModel().setFondoR(Integer.parseInt(items[Model.POS_FONDO_R]));
-            controller.getModel().setFondoV(Integer.parseInt(items[Model.POS_FONDO_V]));
-            controller.getModel().setFondoA(Integer.parseInt(items[Model.POS_FONDO_A]));
+            model.setFondoR(Integer.parseInt(items[Model.POS_FONDO_R]));
+            model.setFondoV(Integer.parseInt(items[Model.POS_FONDO_V]));
+            model.setFondoA(Integer.parseInt(items[Model.POS_FONDO_A]));
         } catch (NumberFormatException e) {
-            controller.getModel().setFondoR(Model.DEF_FONDO_R);
-            controller.getModel().setFondoV(Model.DEF_FONDO_V);
-            controller.getModel().setFondoA(Model.DEF_FONDO_A);
+            model.setFondoR(Model.DEF_FONDO_R);
+            model.setFondoV(Model.DEF_FONDO_V);
+            model.setFondoA(Model.DEF_FONDO_A);
         }
     }
 
     // Modelo > Items
-    public String[] asignarModeloItems() {
-        // Lista vacía
-        String[] items = new String[Model.NUM_ITEMS];
-
+    public void asignarModeloItems(Model model, String[] items) {
         // Items > Lista
-        items[Model.POS_TEXTO] = controller.getModel().getTexto();
-        items[Model.POS_FAMILIA] = controller.getModel().getFamilia();
-        items[Model.POS_NEGRITA] = controller.getModel().isNegrita() + "";
-        items[Model.POS_CURSIVA] = controller.getModel().isCursiva() + "";
-        items[Model.POS_TALLA] = controller.getModel().getTalla() + "";
-        items[Model.POS_FRENTE_R] = controller.getModel().getFrenteR() + "";
-        items[Model.POS_FRENTE_V] = controller.getModel().getFrenteV() + "";
-        items[Model.POS_FRENTE_A] = controller.getModel().getFrenteA() + "";
-        items[Model.POS_FONDO_R] = controller.getModel().getFondoR() + "";
-        items[Model.POS_FONDO_V] = controller.getModel().getFondoV() + "";
-        items[Model.POS_FONDO_A] = controller.getModel().getFondoA() + "";
-
-        // Devuelve Lista
-        return items;
+        items[Model.POS_TEXTO] = model.getTexto();
+        items[Model.POS_FAMILIA] = model.getFamilia();
+        items[Model.POS_NEGRITA] = model.isNegrita() + "";
+        items[Model.POS_CURSIVA] = model.isCursiva() + "";
+        items[Model.POS_TALLA] = model.getTalla() + "";
+        items[Model.POS_FRENTE_R] = model.getFrenteR() + "";
+        items[Model.POS_FRENTE_V] = model.getFrenteV() + "";
+        items[Model.POS_FRENTE_A] = model.getFrenteA() + "";
+        items[Model.POS_FONDO_R] = model.getFondoR() + "";
+        items[Model.POS_FONDO_V] = model.getFondoV() + "";
+        items[Model.POS_FONDO_A] = model.getFondoA() + "";
     }
 
     // Copiar Estado Modelo
-    public void copiarModelo(Model modeloRef) {
+    public void copiarModelo(Model modeloIni, Model modeloFin) {
         // Texto
-        controller.getModel().setTexto(modeloRef.getTexto());
+        modeloFin.setTexto(modeloIni.getTexto());
 
         // Familia
-        controller.getModel().setFamilia(modeloRef.getFamilia());
+        modeloFin.setFamilia(modeloIni.getFamilia());
 
         // Estilo
-        controller.getModel().setNegrita(modeloRef.isNegrita());
-        controller.getModel().setCursiva(modeloRef.isCursiva());
+        modeloFin.setNegrita(modeloIni.isNegrita());
+        modeloFin.setCursiva(modeloIni.isCursiva());
 
         // Tamaño
-        controller.getModel().setTalla(modeloRef.getTalla());
+        modeloFin.setTalla(modeloIni.getTalla());
 
         // Color Frente
-        controller.getModel().setFrenteR(modeloRef.getFrenteR());
-        controller.getModel().setFrenteV(modeloRef.getFrenteV());
-        controller.getModel().setFrenteA(modeloRef.getFrenteA());
+        modeloFin.setFrenteR(modeloIni.getFrenteR());
+        modeloFin.setFrenteV(modeloIni.getFrenteV());
+        modeloFin.setFrenteA(modeloIni.getFrenteA());
 
         // Color Fondo
-        controller.getModel().setFondoR(modeloRef.getFondoR());
-        controller.getModel().setFondoV(modeloRef.getFondoV());
-        controller.getModel().setFondoA(modeloRef.getFondoA());
+        modeloFin.setFondoR(modeloIni.getFondoR());
+        modeloFin.setFondoV(modeloIni.getFondoV());
+        modeloFin.setFondoA(modeloIni.getFondoA());
     }
 
-    public void asignarItemsModelo(Properties prp) {
+    // Propiedades > Modelo
+    public void asignarPropiedadesModelo(Properties prp, Model model) {
         // Texto
-        controller.getModel().setTexto(prp.getProperty("rotulo.texto", Model.DEF_TEXTO));
+        model.setTexto(prp.getProperty("rotulo.texto", Model.DEF_TEXTO));
 
         // Familia
-        controller.getModel().setFamilia(prp.getProperty("rotulo.familia", Model.DEF_FAMILIA));
+        model.setFamilia(prp.getProperty("rotulo.familia", Model.DEF_FAMILIA));
 
         // Estilo
-        controller.getModel().setNegrita(prp.getProperty("rotulo.negrita", Model.DEF_NEGRITA + "").equals("true"));
-        controller.getModel().setCursiva(prp.getProperty("rotulo.cursiva", Model.DEF_CURSIVA + "").equals("true"));
+        model.setNegrita(prp.getProperty("rotulo.negrita", Model.DEF_NEGRITA + "").equals("true"));
+        model.setCursiva(prp.getProperty("rotulo.cursiva", Model.DEF_CURSIVA + "").equals("true"));
 
         // Talla
         try {
-            controller.getModel().setTalla(Integer.parseInt(prp.getProperty("rotulo.talla")));
+            model.setTalla(Integer.parseInt(prp.getProperty("rotulo.talla")));
         } catch (NumberFormatException e) {
-            controller.getModel().setTalla(Model.DEF_TALLA);
+            model.setTalla(Model.DEF_TALLA);
         }
 
         // Color de Frente
         try {
-            controller.getModel().setFrenteR(Integer.parseInt(prp.getProperty("rotulo.frente_r")));
-            controller.getModel().setFrenteV(Integer.parseInt(prp.getProperty("rotulo.frente_v")));
-            controller.getModel().setFrenteA(Integer.parseInt(prp.getProperty("rotulo.frente_a")));
+            model.setFrenteR(Integer.parseInt(prp.getProperty("rotulo.frente_r")));
+            model.setFrenteV(Integer.parseInt(prp.getProperty("rotulo.frente_v")));
+            model.setFrenteA(Integer.parseInt(prp.getProperty("rotulo.frente_a")));
         } catch (NumberFormatException e) {
-            controller.getModel().setFrenteR(Model.DEF_FRENTE_R);
-            controller.getModel().setFrenteV(Model.DEF_FRENTE_V);
-            controller.getModel().setFrenteA(Model.DEF_FRENTE_A);
+            model.setFrenteR(Model.DEF_FRENTE_R);
+            model.setFrenteV(Model.DEF_FRENTE_V);
+            model.setFrenteA(Model.DEF_FRENTE_A);
         }
 
         // Color de Fondo
         try {
-            controller.getModel().setFondoR(Integer.parseInt(prp.getProperty("rotulo.fondo_r")));
-            controller.getModel().setFondoV(Integer.parseInt(prp.getProperty("rotulo.fondo_v")));
-            controller.getModel().setFondoA(Integer.parseInt(prp.getProperty("rotulo.fondo_a")));
+            model.setFondoR(Integer.parseInt(prp.getProperty("rotulo.fondo_r")));
+            model.setFondoV(Integer.parseInt(prp.getProperty("rotulo.fondo_v")));
+            model.setFondoA(Integer.parseInt(prp.getProperty("rotulo.fondo_a")));
         } catch (NumberFormatException e) {
-            controller.getModel().setFondoR(Model.DEF_FONDO_R);
-            controller.getModel().setFondoV(Model.DEF_FONDO_V);
-            controller.getModel().setFondoA(Model.DEF_FONDO_A);
+            model.setFondoR(Model.DEF_FONDO_R);
+            model.setFondoV(Model.DEF_FONDO_V);
+            model.setFondoA(Model.DEF_FONDO_A);
         }
     }
 
     // Modelo > Propiedades
-    public Properties generarPropiedadesModelo() {
-        // Instancia Propiedades
-        Properties prp = new Properties();
-
-        // Escribe Propiedades
-        prp.setProperty("rotulo.texto", controller.getModel().getTexto());
-        prp.setProperty("rotulo.familia", controller.getModel().getFamilia());
-        prp.setProperty("rotulo.negrita", controller.getModel().isNegrita() + "");
-        prp.setProperty("rotulo.cursiva", controller.getModel().isCursiva() + "");
-        prp.setProperty("rotulo.talla", controller.getModel().getTalla() + "");
-        prp.setProperty("rotulo.frente_r", controller.getModel().getFrenteR() + "");
-        prp.setProperty("rotulo.frente_v", controller.getModel().getFrenteV() + "");
-        prp.setProperty("rotulo.frente_a", controller.getModel().getFrenteA() + "");
-        prp.setProperty("rotulo.fondo_r", controller.getModel().getFondoR() + "");
-        prp.setProperty("rotulo.fondo_v", controller.getModel().getFondoV() + "");
-        prp.setProperty("rotulo.fondo_a", controller.getModel().getFondoA() + "");
-
-        // Devuelve Propiedades
-        return prp;
+    public void asignarModeloPropiedades(Model model, Properties prp) {
+        prp.setProperty("rotulo.texto", model.getTexto());
+        prp.setProperty("rotulo.familia", model.getFamilia());
+        prp.setProperty("rotulo.negrita", model.isNegrita() + "");
+        prp.setProperty("rotulo.cursiva", model.isCursiva() + "");
+        prp.setProperty("rotulo.talla", model.getTalla() + "");
+        prp.setProperty("rotulo.frente_r", model.getFrenteR() + "");
+        prp.setProperty("rotulo.frente_v", model.getFrenteV() + "");
+        prp.setProperty("rotulo.frente_a", model.getFrenteA() + "");
+        prp.setProperty("rotulo.fondo_r", model.getFondoR() + "");
+        prp.setProperty("rotulo.fondo_v", model.getFondoV() + "");
+        prp.setProperty("rotulo.fondo_a", model.getFondoA() + "");
     }
 
+    // Validar Controles Subjetivos
+    public boolean comprobarValidez(View view) {
+        // Validación Individual
+//        boolean item1OK = UtilesValidacion.validarCampoTexto(view.txfItem1, Modelo.ER_ITEM1, "*");
+//        boolean item2OK = UtilesValidacion.validarCampoTexto(view.txfItem2, Modelo.ER_ITEM2, "*");
+//        boolean item4OK = UtilesValidacion.validarCampoFecha(view.txfItem4, "*");
+//        boolean item5OK = UtilesValidacion.validarCampoTexto(view.txfItem5, Modelo.ER_ITEM5, "*");
+
+        // Validación Conjunta
+//        return item1OK && item2OK && item4OK && item5OK;
+        return true;
+    }
+
+    // Estado Actual > Persistencia
+    public void memorizarEstadoApp(Properties prpApp) {
+        // Actualiza Propiedades Estado Actual
+
+        // Guardar Estado Actual
+        // UtilesApp.guardarPropiedades(prpApp);
+    }
 }

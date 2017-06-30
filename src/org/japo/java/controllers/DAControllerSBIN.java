@@ -20,40 +20,40 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import org.japo.java.entities.Model;
-import org.japo.java.interfaces.IDataAccess;
+import org.japo.java.interfaces.IDAController;
 
 /**
  *
  * @author José A. Pacheco Ondoño - joanpaon@gmail.com
  */
-public class DAControllerSBIN implements IDataAccess {
+public class DAControllerSBIN implements IDAController {
 
-    // Referencia al MainController
-    private final MainController controller;
+    // Referencias
+    private final ModelController modelControl;
 
     // Constructor Parametrizado
-    public DAControllerSBIN(MainController controller) {
-        this.controller = controller;
+    public DAControllerSBIN(ModelController modelControl) {
+        this.modelControl = modelControl;
     }
 
     // Modelo > Fichero [SBIN]
     @Override
-    public void exportarModelo(String fichero) throws Exception {
+    public void exportarModelo(Model model, String fichero) throws Exception {
         try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(fichero))) {
             // Escribe el modelo
-            salida.writeObject(controller.getModel());
+            salida.writeObject(model);
         }
     }
 
     // Fichero [SBIN] > Modelo
     @Override
-    public void importarModelo(String fichero) throws Exception {
+    public void importarModelo(Model modelFin, String fichero) throws Exception {
         try (ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(fichero))) {
             // Persistencia Binaria > Modelo Importado
-            Model modeloImp = (Model) entrada.readObject();
+            Model modeloIni = (Model) entrada.readObject();
 
             // Modelo Importado > Modelo
-            controller.getModelController().copiarModelo(modeloImp);
+            modelControl.copiarModelo(modeloIni, modelFin);
         }
     }
 }

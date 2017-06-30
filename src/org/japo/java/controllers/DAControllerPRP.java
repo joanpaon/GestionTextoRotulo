@@ -16,28 +16,32 @@
 package org.japo.java.controllers;
 
 import java.util.Properties;
+import org.japo.java.entities.Model;
 import org.japo.java.lib.UtilesApp;
-import org.japo.java.interfaces.IDataAccess;
+import org.japo.java.interfaces.IDAController;
 
 /**
  *
  * @author José A. Pacheco Ondoño - joanpaon@gmail.com
  */
-public class DAControllerPRP implements IDataAccess {
+public class DAControllerPRP implements IDAController {
 
-    // Referencia al MainController
-    private final MainController controller;
+    // Referencias
+    private final ModelController modelControl;
 
     // Constructor Parametrizado
-    public DAControllerPRP(MainController controller) {
-        this.controller = controller;
+    public DAControllerPRP(ModelController modelControl) {
+        this.modelControl = modelControl;
     }
 
     // Modelo > Fichero [Propiedades de Java]
     @Override
-    public void exportarModelo(String fichero) throws Exception {
+    public void exportarModelo(Model model, String fichero) throws Exception {
+        // Propiedades
+        Properties prp = new Properties();
+        
         // Modelo > Propiedades
-        Properties prp = controller.getModelController().generarPropiedadesModelo();
+        modelControl.asignarModeloPropiedades(model, prp);
 
         // Guarda las propiedades
         UtilesApp.guardarPropiedades(prp, fichero);
@@ -45,11 +49,11 @@ public class DAControllerPRP implements IDataAccess {
 
     // Fichero [Propiedades de Java] > Modelo
     @Override
-    public void importarModelo(String fichero) throws Exception {
+    public void importarModelo(Model model, String fichero) throws Exception {
         // Carga Propiedades
         Properties prp = UtilesApp.cargarPropiedades(fichero);
 
         // Propiedades > Modelo
-        controller.getModelController().asignarItemsModelo(prp);
+        modelControl.asignarPropiedadesModelo(prp, model);
     }
 }

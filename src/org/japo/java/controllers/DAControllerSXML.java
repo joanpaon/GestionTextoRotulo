@@ -20,40 +20,40 @@ import java.beans.XMLEncoder;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import org.japo.java.entities.Model;
-import org.japo.java.interfaces.IDataAccess;
+import org.japo.java.interfaces.IDAController;
 
 /**
  *
  * @author José A. Pacheco Ondoño - joanpaon@gmail.com
  */
-public class DAControllerSXML implements IDataAccess {
+public class DAControllerSXML implements IDAController {
 
-    // Referencia al MainController
-    private final MainController controller;
+    // Referencias
+    private final ModelController modelControl;
 
     // Constructor Parametrizado
-    public DAControllerSXML(MainController controller) {
-        this.controller = controller;
+    public DAControllerSXML(ModelController modelControl) {
+        this.modelControl = modelControl;
     }
 
     // Modelo > Fichero [SXML]
     @Override
-    public void exportarModelo(String fichero) throws Exception {
+    public void exportarModelo(Model model, String fichero) throws Exception {
         try (XMLEncoder salida = new XMLEncoder(new FileOutputStream(fichero))) {
             // Escribe el modelo
-            salida.writeObject(controller.getModel());
+            salida.writeObject(model);
         }
     }
 
     // Fichero [SXML] > Modelo
     @Override
-    public void importarModelo(String fichero) throws Exception {
+    public void importarModelo(Model modeloFin, String fichero) throws Exception {
         try (XMLDecoder entrada = new XMLDecoder(new FileInputStream(fichero))) {
             // Persistencia Binaria > Modelo Importado            
-            Model modeloImp = (Model) entrada.readObject();
+            Model modeloIni = (Model) entrada.readObject();
 
             // Modelo Importado > Modelo
-            controller.getModelController().copiarModelo(modeloImp);
+            modelControl.copiarModelo(modeloIni, modeloFin);
         }
     }
 }
