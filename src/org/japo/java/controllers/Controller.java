@@ -51,7 +51,7 @@ public class Controller {
         this.prpApp = UtilesApp.cargarPropiedades();
 
         // Controlador de Modelo
-        this.modelControl = new ModelController(this);
+        this.modelControl = new ModelController();
 
         // *** Controlador de Persistencia ***
         this.daControl = new DAControllerJSON(modelControl);

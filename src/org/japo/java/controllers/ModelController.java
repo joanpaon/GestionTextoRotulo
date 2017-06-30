@@ -25,14 +25,6 @@ import org.japo.java.forms.View;
  */
 public class ModelController {
 
-    // Referencias
-    private final Controller control;
-
-    // Constructor Parametrizado
-    public ModelController(Controller control) {
-        this.control = control;
-    }
-
     // Items > Modelo
     public void asignarItemsModelo(String[] items, Model model) throws Exception {
         // Texto
