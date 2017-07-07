@@ -1,30 +1,37 @@
 <pre>
 
+Version 0.1.5 - 30/06/2017
+==========================
+
+Some refactorizations.
+
+---
+
 Version 0.1.4 - 30/06/2017
 ==========================
 
-> Yet more refactorizations, improvements and fixed bugs 
+> Yet more refactorizations, improvements and fixed bugs.
 
 ---
 
 Version 0.1.3 - 30/06/2017
 ==========================
 
-> More refactorizations, improvements and fixed bugs 
+> More refactorizations, improvements and fixed bugs.
 
 ---
 
 Version 0.1.2 - 30/06/2017
 ==========================
 
-> More refactorizations, improvements and fixed bugs 
+> More refactorizations, improvements and fixed bugs.
 
 ---
 
 Version 0.1.1 - 28/06/2017
 ==========================
 
-> Many, many refactorizations and improvements
+> Many, many refactorizations and improvements.
 
 ---
 
