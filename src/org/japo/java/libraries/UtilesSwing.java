@@ -1,4 +1,4 @@
-/*
+/* 
  * Copyright 2017 José A. Pacheco Ondoño - joanpaon@gmail.com.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.japo.java.lib;
+package org.japo.java.libraries;
 
 import java.awt.GraphicsEnvironment;
 import java.awt.HeadlessException;
@@ -27,6 +27,7 @@ import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.URL;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -73,7 +74,7 @@ public class UtilesSwing {
         try {
             UIManager.setLookAndFeel(lnf);
         } catch (ClassNotFoundException | IllegalAccessException
-            | InstantiationException | UnsupportedLookAndFeelException e) {
+                | InstantiationException | UnsupportedLookAndFeelException e) {
             System.out.println(e.getLocalizedMessage());
         }
     }
@@ -82,9 +83,9 @@ public class UtilesSwing {
     public static void asignarImagenEscalada(JLabel lblImagen, Image imgOriginal) {
         // Obtiene la imagen escalada
         Image imgEscalada = imgOriginal.getScaledInstance(
-              lblImagen.getSize().width,
-              lblImagen.getSize().height,
-              Image.SCALE_FAST);
+                lblImagen.getSize().width,
+                lblImagen.getSize().height,
+                Image.SCALE_FAST);
 
         // Image (Final) > Icon
         Icon i = new ImageIcon(imgEscalada);
@@ -128,49 +129,49 @@ public class UtilesSwing {
         clipboard.setContents(transmisor, propietario);
     }
 
-    // Cambiar valor sin disparar Eventos de Ajuste
+    // Cambiar Valor sin Disparar Eventos Ajuste
     public static void ajustarValorDeslizador(JSlider sldActual, int valor) {
-        // Captura los escuchadores del deslizador
+        // Referenciar Escuchadores Eventos Ajuste
         ChangeListener[] lista = sldActual.getChangeListeners();
 
-        // Desactiva los escuchadores del deslizador
-        for (ChangeListener clAct : lista) {
-            sldActual.removeChangeListener(clAct);
+        // Desconectar Escuchadores del Deslizador
+        for (ChangeListener listener : lista) {
+            sldActual.removeChangeListener(listener);
         }
 
-        // Establece el valor al deslizador
+        // Esteblece el Nuevo Valor
         sldActual.setValue(valor);
 
-        // Asocia los escuchadores al deslizador
-        for (ChangeListener clAct : lista) {
-            sldActual.addChangeListener(clAct);
+        // Reconectar Escuchadores del Deslizador
+        for (ChangeListener listener : lista) {
+            sldActual.addChangeListener(listener);
         }
     }
 
-    // Cambiar valor sin disparar Eventos de Ajuste
+    // Cambiar Valor sin Disparar Eventos Ajuste
     public static void ajustarValorCambiador(JSpinner spnActual, int valor) {
-        // Captura los escuchadores del cambiador
+        // Referenciar Escuchadores Eventos Ajuste
         ChangeListener[] lista = spnActual.getChangeListeners();
 
         /**
          * Desactiva el primer ChangeListener para que no se propaguen eventos.
-         * Si se desconectan todos los listeners el JSpinner no se actualiza con
-         * el valor cambiado por set value.
+         * Si se desconectan todos los escuchadores el JSpinner no se actualiza
+         * con el valor cambiado por el método setValue
          */
         spnActual.removeChangeListener(lista[0]);
 
-        // Cambia el valor del spinner
+        // Esteblece el Nuevo Valor
         spnActual.setValue(valor);
 
-        // Reconecta el primer ChangeListener
+        // Reconectar Escuchadores del Deslizador
         spnActual.addChangeListener(lista[0]);
     }
 
     // Tipografias disponibles en el sistema
     public static String[] obtenerTipografiasSistema() {
         return GraphicsEnvironment.
-            getLocalGraphicsEnvironment().
-            getAvailableFontFamilyNames();
+                getLocalGraphicsEnvironment().
+                getAvailableFontFamilyNames();
     }
 
     public static void seleccionarElementoCombo(JComboBox<String> cbbActual, String item) {
@@ -189,5 +190,14 @@ public class UtilesSwing {
         for (ActionListener al : lista) {
             cbbActual.addActionListener(al);
         }
+    }
+
+    // Asignar Favicon Ventana
+    public static void establecerFavicon(JFrame ventana, String rutaFavicon) {
+        // Ruta Favicon > URL Favicon
+        URL urlICN = ClassLoader.getSystemResource(rutaFavicon);
+
+        // URL Favicon > Ventana Favicon
+        ventana.setIconImage(new ImageIcon(urlICN).getImage());
     }
 }

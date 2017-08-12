@@ -1,4 +1,4 @@
-/*
+/* 
  * Copyright 2017 José A. Pacheco Ondoño - joanpaon@gmail.com.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.japo.java.lib;
+package org.japo.java.libraries;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -38,53 +38,41 @@ public class UtilesApp {
         return cargarPropiedades(FICHERO_PRP_APP);
     }
 
-    // Fichero > Propiedades
+    // Fichero Propiedades > Objeto Propiedades
     public static Properties cargarPropiedades(String fichero) {
-        // Propiedades
-        Properties p;
+        // Objeto de Propiedades Vacio
+        Properties prp = new Properties();
 
-        // Proceso de carga
+        // Cargar Fichero de Propiedades 
         try (FileReader fr = new FileReader(fichero)) {
-            // Crear propiedades de la BD
-            p = new Properties();
-
-            // Cargar propiedades
-            p.load(fr);
+            prp.load(fr);
         } catch (Exception e) {
-            // Mensaje de error
-            System.out.println(e.getLocalizedMessage());
-
-            // No Propiedades
-            p = null;
+            System.out.println(e);
         }
 
-        // Devuelve las propiedades
-        return p;
+        // Devolver Propiedades
+        return prp;
     }
 
-    // Propiedades > Fichero (Por defecto)
-    public static boolean guardarPropiedades(Properties p) {
-        return guardarPropiedades(p, FICHERO_PRP_APP);
+    // Objeto Propiedades > Fichero Propiedades (Por defecto)
+    public static boolean guardarPropiedades(Properties prp) {
+        return guardarPropiedades(prp, FICHERO_PRP_APP);
     }
 
-    // Propiedades > Fichero
-    public static boolean guardarPropiedades(Properties p, String fichero) {
+    // Objeto Propiedades > Fichero Propiedades
+    public static boolean guardarPropiedades(Properties prp, String fichero) {
         // Semáforo Estado
-        boolean procesoOK;
+        boolean procesoOK = false;
 
-        // Proceso de salvaguarda de propiedades
+        // Guardar Fichero de Propiedades 
         try (FileWriter fw = new FileWriter(fichero)) {
-            // Guarda las propiedades
-            p.store(fw, null);
+            // Guardar Propiedades
+            prp.store(fw, null);
 
             // Proceso OK
             procesoOK = true;
         } catch (Exception e) {
-            // Mensaje de error
-            System.out.println(e.getLocalizedMessage());
-
-            // Error
-            procesoOK = false;
+            System.out.println(e);
         }
 
         // Devuelve Estado
@@ -92,13 +80,13 @@ public class UtilesApp {
     }
 
     // Activa Instancia Única
-    public static boolean activarInstancia(Properties p) {
+    public static boolean activarInstancia(Properties prp) {
         // Semaforo Estado
-        boolean instanciaOK;
+        boolean instanciaOK = false;
 
         try {
             // Obtener dato
-            String dato = p.getProperty("puerto_bloqueo", PUERTO_BLOQUEO);
+            String dato = prp.getProperty("puerto_bloqueo", PUERTO_BLOQUEO);
 
             // Puerto de bloqueo
             int puerto = Integer.parseInt(dato);
@@ -109,11 +97,8 @@ public class UtilesApp {
             // Marca Semáforo
             instanciaOK = true;
         } catch (IOException | NumberFormatException e) {
-            // Marca Semáforo
-            instanciaOK = false;
-
             // Mensaje Informativo
-            System.out.println(e.getLocalizedMessage());
+            System.out.println(e);
         }
 
         // Devuelve Estado
@@ -121,13 +106,13 @@ public class UtilesApp {
     }
 
     // Activa Instancia Única
-    public static boolean activarInstancia(String dato) {
+    public static boolean activarInstancia(String txtPuerto) {
         // Semaforo Estado
-        boolean instanciaOK;
+        boolean instanciaOK = false;
 
         try {
             // Conversión numérica
-            int puerto = Integer.parseInt(dato);
+            int puerto = Integer.parseInt(txtPuerto);
 
             // Abre un ServerSocket al puerto de bloqueo
             ServerSocket ss = new ServerSocket(puerto);
@@ -135,11 +120,8 @@ public class UtilesApp {
             // Marca Semáforo
             instanciaOK = true;
         } catch (IOException | NumberFormatException e) {
-            // Marca Semáforo
-            instanciaOK = false;
-
             // Mensaje Informativo
-            System.out.println(e.getLocalizedMessage());
+            System.out.println(e);
         }
 
         // Devuelve Estado

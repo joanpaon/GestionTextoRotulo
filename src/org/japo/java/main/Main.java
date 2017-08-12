@@ -15,23 +15,26 @@
  */
 package org.japo.java.main;
 
-import org.japo.java.app.App;
+import java.awt.EventQueue;
+import org.japo.java.views.View;
 
 /**
  *
  * @author José A. Pacheco Ondoño - joanpaon@gmail.com
- *
- * Arranque e inicialización de la aplicación
  */
 public class Main {
 
     // Punto de entrada a la aplicación
     public static void main(String[] args) {
-        // Crear aplicación
-        App app = new App();
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                // Instancia Vista
+                View view = new View();
 
-        // Lanzar aplicación
-        app.launchApp();
+                // Muestra Vista
+                view.setVisible(true);
+            }
+        });
     }
-
 }
